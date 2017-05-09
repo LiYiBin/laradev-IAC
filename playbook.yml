@@ -1,0 +1,58 @@
+---
+- hosts: all
+  become: true
+  gather_facts: False
+  vars_files:
+    - .env.yml
+
+  pre_tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal)
+      changed_when: False
+
+    - setup: # aka gather_facts
+
+    - name: Update apt cache if needed.
+      apt: update_cache=yes cache_valid_time=3600
+
+  tasks:
+    - name: Install pip
+      apt: name={{ item }} state=present
+      with_items:
+        - python-pip
+
+    - name: Install packages for allowing python to confirm the servers CA certificate
+      pip: name={{ item }} state=present
+      with_items:
+        - urllib3
+        - pyopenssl
+        - ndg-httpsclient
+        - pyasn1
+
+    - name: Install packages for allowing apt to use a repository over HTTPS
+      apt: name={{ item }} state=present
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add repository for docker
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ linux_codename }} stable"
+        state: present
+
+    - name: Install special Docker version
+      apt:
+        name: docker-ce={{ docker_ce_version }}
+        state: present
+
+    - name: Install docker-compose
+      pip:
+        name: docker-compose=={{ docker_compose_version }}
+        state: present
