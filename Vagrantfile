@@ -5,8 +5,7 @@ require "yaml"
 
 # get env
 current_dir = File.dirname(File.expand_path(__FILE__))
-env_file = YAML.load_file("#{current_dir}/.env.yml")
-env = env_file["vm"]
+env = YAML.load_file("#{current_dir}/.env.yml")
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -22,13 +21,17 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
 
   config.vm.provider :virtualbox do |virtualbox|
-    virtualbox.memory = env["memory"]
+    virtualbox.memory = env["vm"]["memory"]
   end
 
-  config.vm.define "laradev" do |app|
-    app.vm.network :private_network, ip: env["ip"]
+  config.vm.define "dev" do |app|
+    app.vm.network :private_network, ip: env["vm"]["ip"]
 
     app.vm.synced_folder ".", "/home/vagrant/shared"
+    env["folders"].each do |folder|
+      app.vm.synced_folder folder["map"], folder["to"]
+    end
+
     app.vm.provision :ansible do |ansible|
       ansible.playbook = "playbook.yml"
     end
