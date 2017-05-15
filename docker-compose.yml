@@ -1,0 +1,12 @@
+
+version: '3'
+
+services:
+  apache2:
+    build: ./apache2
+    ports:
+      - "80:80"
+    volumes:
+      - ./apache2/sites:/etc/apache2/sites-available
+      - ./apache2/php.ini:/usr/local/etc/php/php.ini
+      - /home/vagrant/sites:/var/www/html
