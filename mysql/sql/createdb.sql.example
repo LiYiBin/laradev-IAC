@@ -1,0 +1,5 @@
+
+# CREATE DATABASE IF NOT EXISTS `dev_db_1` COLLATE 'utf8_general_ci' ;
+# GRANT ALL ON `dev_db_1`.* TO 'homestead'@'%' ;
+
+FLUSH PRIVILEGES ;

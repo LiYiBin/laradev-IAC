@@ -10,3 +10,16 @@ services:
       - ./apache2/sites:/etc/apache2/sites-available
       - ./apache2/php.ini:/usr/local/etc/php/php.ini
       - /home/vagrant/sites:/var/www/html
+
+  mysql:
+    image: mysql:5.7.18
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=homestead
+      - MYSQL_USER=homestead
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./mysql/sql:/sql
+      - /home/vagrant/shared/mysql:/var/lib/mysql

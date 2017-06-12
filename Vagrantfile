@@ -27,7 +27,11 @@ Vagrant.configure("2") do |config|
   config.vm.define "dev" do |app|
     app.vm.network :private_network, ip: env["vm"]["ip"]
 
-    app.vm.synced_folder ".", "/home/vagrant/shared"
+    app.vm.synced_folder ".", "/home/vagrant/iac"
+    # app.vm.synced_folder "~/shared/mysql", "/home/vagrant/shared/mysql", id: "mysql",
+    #   owner: 999, group: 999, # owner: "mysql", group: "mysql",
+    #   mount_options: ["dmode=775,fmode=664"]
+
     env["folders"].each do |folder|
       app.vm.synced_folder folder["map"], folder["to"]
     end
