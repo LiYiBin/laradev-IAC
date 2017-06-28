@@ -31,9 +31,11 @@ Vagrant.configure("2") do |config|
     # app.vm.synced_folder "~/shared/mysql", "/home/vagrant/shared/mysql", id: "mysql",
     #   owner: 999, group: 999, # owner: "mysql", group: "mysql",
     #   mount_options: ["dmode=775,fmode=664"]
-
     env["folders"].each do |folder|
-      app.vm.synced_folder folder["map"], folder["to"]
+      app.vm.synced_folder folder["map"], folder["to"],
+        owner: "vagrant",
+        group: "www-data",
+        mount_options: ["dmode=775,fmode=664"]
     end
 
     app.vm.provision :ansible do |ansible|
