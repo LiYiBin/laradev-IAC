@@ -12,7 +12,7 @@ services:
       - /home/vagrant/sites:/var/www/html
 
   mysql:
-    image: mysql:5.7.18
+    build: ./mysql
     ports:
       - "3306:3306"
     environment:
@@ -21,5 +21,5 @@ services:
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - ./mysql/sql:/sql
+      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       - /home/vagrant/shared/mysql:/var/lib/mysql
