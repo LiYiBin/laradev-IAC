@@ -6,6 +6,8 @@ services:
     build: ./apache2
     ports:
       - "80:80"
+    environment:
+      - XDEBUG_CONFIG="remote_host=192.168.22.1"
     volumes:
       - ./apache2/sites:/etc/apache2/sites-available
       - ./apache2/php.ini:/usr/local/etc/php/php.ini
