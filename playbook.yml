@@ -47,7 +47,7 @@
         repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ linux_codename }} stable"
         state: present
 
-    - name: Install special Docker version
+    - name: Install specified Docker version
       apt:
         name: docker-ce={{ docker_ce_version }}
         state: present
@@ -56,3 +56,10 @@
       pip:
         name: docker-compose=={{ docker_compose_version }}
         state: present
+
+    - name: Start docker-compose up
+      docker_service:
+        project_src: "{{ docker_compose_path }}"
+        state: present
+        build: yes
+        debug: yes
