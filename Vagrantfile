@@ -43,6 +43,11 @@ Vagrant.configure("2") do |config|
         args: [env["iac_path"] + "/apache2/", site["map"], site["to"]]
     end
 
+    env["databases"].each do |database|
+      app.vm.provision "shell", path: "mysql/create_sql.sh",
+        args: [env["iac_path"] + "/mysql/", database]
+    end
+
     app.vm.provision :ansible do |ansible|
       ansible.playbook = "playbook.yml"
     end
