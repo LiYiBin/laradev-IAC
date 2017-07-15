@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "dev" do |app|
     app.vm.network :private_network, ip: env["vm"]["ip"]
 
-    app.vm.synced_folder ".", env["docker_compose_path"]
+    app.vm.synced_folder ".", env["iac_path"]
     # app.vm.synced_folder "~/shared/mysql", "/home/vagrant/shared/mysql", id: "mysql",
     #   owner: 999, group: 999, # owner: "mysql", group: "mysql",
     #   mount_options: ["dmode=775,fmode=664"]
