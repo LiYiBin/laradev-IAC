@@ -59,7 +59,7 @@
 
     - name: Start docker-compose up
       docker_service:
-        project_src: "{{ docker_compose_path }}"
+        project_src: "{{ iac_path }}"
         state: present
         build: yes
         debug: yes

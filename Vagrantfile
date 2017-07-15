@@ -38,6 +38,11 @@ Vagrant.configure("2") do |config|
         mount_options: ["dmode=775,fmode=664"]
     end
 
+    env["sites"].each do |site|
+      app.vm.provision "shell", path: "apache2/create_conf.sh",
+        args: [env["iac_path"] + "/apache2/", site["map"], site["to"]]
+    end
+
     app.vm.provision :ansible do |ansible|
       ansible.playbook = "playbook.yml"
     end
