@@ -21,4 +21,4 @@ done
 cp $defaultConf $conf
 
 sed -i -e "s/{SERVER_NAME}/$domain/g" $conf
-sed -i -e "s/{DOCUMENT_ROOT}/$parsedPath/g" $conf
+sed -i -e "s/{DOCUMENT_ROOT}/\/var\/www\/html\/$parsedPath/g" $conf
