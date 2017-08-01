@@ -1,0 +1,8 @@
+---
+sites:
+  - phoenix.dev|phoenix/public
+  - phoenix2.dev|phoenix2/public
+
+databases:
+  - phoenix
+  - phoenix2

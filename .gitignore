@@ -5,6 +5,8 @@
 .env.yml
 *.log
 *.retry
+.config.yml
+.env
 
 #########
 # Eclipse

@@ -1,8 +1,9 @@
-relative=$1
-databaseName=$2
 
-defaultSql=$relative"createdb.sql.example"
-sqlFile=$relative"docker-entrypoint-initdb.d/create_$databaseName.sql"
+databaseName=$1
+
+relative=$PWD"/mysql"
+defaultSql=$relative"/createdb.sql.example"
+sqlFile=$relative"/docker-entrypoint-initdb.d/create_$databaseName.sql"
 
 if [ -f $sqlFile ]; then
   echo \"$sqlFile\" already created!

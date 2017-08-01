@@ -1,10 +1,10 @@
 
-relative=$1
-domain=$2
-sitePath=$3
+domain=$1
+sitePath=$2
 
-defaultConf=$relative"default.apache.conf"
-conf=$relative"sites/$domain.conf"
+relative=$PWD"/apache2"
+defaultConf=$relative"/default.apache.conf"
+conf=$relative"/sites/$domain.conf"
 if [ -f $conf ]; then
   echo \"$conf\" already created!
   exit 0
