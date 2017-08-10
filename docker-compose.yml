@@ -5,18 +5,18 @@ services:
   apache2:
     build: ./apache2
     ports:
-      - "80:80"
+      - "${APACHE_PORT}:80"
     environment:
       - XDEBUG_CONFIG="remote_host=192.168.22.1"
     volumes:
       - ./apache2/sites:/etc/apache2/sites-available
       - ./apache2/php.ini:/usr/local/etc/php/php.ini
-      - /home/vagrant/sites:/var/www/html
+      - ${APPLICATION}:/var/www/html
 
   mysql:
     build: ./mysql
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT}:3306"
     environment:
       - MYSQL_DATABASE=homestead
       - MYSQL_USER=homestead
@@ -24,4 +24,4 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-      - /home/vagrant/shared/mysql:/var/lib/mysql
+      - ${DATA_SAVE_PATH}/mysql:/var/lib/mysql
